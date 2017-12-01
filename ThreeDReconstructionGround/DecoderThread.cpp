@@ -1,10 +1,9 @@
 ﻿#include "DecoderThread.h"
 
 
-DecoderThread::DecoderThread(char* filePath, Ui::ThreeDReconstructionGroundClass* pUi)
+DecoderThread::DecoderThread(char* filePath)
 {
 	this->filePath = filePath;
-	this->pUi = pUi;
 }
 
 DecoderThread::~DecoderThread()
@@ -24,6 +23,8 @@ int DecoderThread::DecoderInit()
 
 	av_register_all();
 	avformat_network_init();
+
+	printf("ggg\n");
 
 	pFormatCtx = avformat_alloc_context();
 
@@ -99,8 +100,10 @@ int DecoderThread::DecoderInit()
 				QImage image((uchar *)pFrameRGB->data[0], pCodecCtx->width, pCodecCtx->height, QImage::Format_RGB32);
 				QPixmap pix;
 				pix.convertFromImage(image);
-				pUi->label1->setPixmap(pix);
+				emit RefreshPicture(pix);
+				//showLable->setPixmap(pix);
 
+				printf("%d \n", (int)pFrameRaw->pts);
 				Delay_MSec(10);
 			}
 		}

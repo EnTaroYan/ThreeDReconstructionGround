@@ -126,6 +126,8 @@
   </connection>
  </connections>
  <slots>
+  <signal>showLable1(QPixmap)</signal>
+  <signal>showLable2(QPixmap)</signal>
   <slot>button1Click()</slot>
   <slot>button2Click()</slot>
  </slots>

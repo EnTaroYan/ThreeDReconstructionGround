@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QObject>
 #include <QtWidgets/QMainWindow>
 #include "ui_ThreeDReconstructionGround.h"
 #include "DecoderThread.h"
@@ -19,4 +20,7 @@ private:
 private slots:
 	void button1Click();
 	void button2Click();
+	void showLable1(QPixmap pix);
+	void showLable2(QPixmap pix);
+	
 };

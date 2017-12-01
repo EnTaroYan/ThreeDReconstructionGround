@@ -8,6 +8,8 @@
 #include <QImage>
 #include <QString>
 #include <QPixmap>
+#include <QLabel>
+#include <QObject>
 
 extern "C"
 {
@@ -17,16 +19,18 @@ extern "C"
 #include "libavutil/imgutils.h"
 }
 
-class DecoderThread :QThread
+class DecoderThread :public QThread
 {
+	Q_OBJECT
+
 public:
-	DecoderThread(char* filePath, Ui::ThreeDReconstructionGroundClass* pUi);
+	DecoderThread(char* filePath);
 	~DecoderThread();
 	virtual void run();
 	int DecoderInit();
 
 private:
-	Ui::ThreeDReconstructionGroundClass* pUi;
+	QLabel* showLable;
 
 	AVFormatContext *pFormatCtx;
 	AVCodecContext *pCodecCtx;
@@ -37,4 +41,7 @@ private:
 	unsigned char *out_buffer;
 	char* filePath;
 	int	videoindex;
+
+signals:
+	void RefreshPicture(QPixmap);
 };
