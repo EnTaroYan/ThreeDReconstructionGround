@@ -24,7 +24,7 @@ class DecoderThread :public QThread
 	Q_OBJECT
 
 public:
-	DecoderThread(char* filePath);
+	DecoderThread(char* filePath,char *camNumber);
 	~DecoderThread();
 	virtual void run();
 	int DecoderInit();
@@ -32,6 +32,9 @@ public:
 private:
 	QLabel* showLable;
 
+	char* camNumber;
+
+	//decode video
 	AVFormatContext *pFormatCtx;
 	AVCodecContext *pCodecCtx;
 	AVCodec *pCodec;
@@ -41,6 +44,9 @@ private:
 	unsigned char *out_buffer;
 	char* filePath;
 	int	videoindex;
+
+	//encode jpg picture
+	int SaveAsJPEG(char* filename, AVFrame* pFrame, int width, int height);
 
 signals:
 	void RefreshPicture(QPixmap);

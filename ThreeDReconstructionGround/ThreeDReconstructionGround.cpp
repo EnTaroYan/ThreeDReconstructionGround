@@ -6,18 +6,17 @@ ThreeDReconstructionGround::ThreeDReconstructionGround(QWidget *parent)
 {
 	ui.setupUi(this);
 
-	decodeCam1 = new DecoderThread(FILE_PATH_CAM1);
-	decodeCam2 = new DecoderThread(FILE_PATH_CAM2);
+	decodeCam1 = new DecoderThread(FILE_PATH_CAM1,"A");
+	decodeCam2 = new DecoderThread(FILE_PATH_CAM2,"B");
 
 	connect((const QObject*)(decodeCam1), SIGNAL(RefreshPicture(QPixmap)), (const QObject*)this, SLOT(showLable1(QPixmap)));
 	connect((const QObject*)(decodeCam2), SIGNAL(RefreshPicture(QPixmap)), (const QObject*)this, SLOT(showLable2(QPixmap)));
 }
-
 void ThreeDReconstructionGround::button1Click()
 {
 	
 	decodeCam1->start();
-	decodeCam2->start();
+	//decodeCam2->start();
 }
 
 void ThreeDReconstructionGround::button2Click()
